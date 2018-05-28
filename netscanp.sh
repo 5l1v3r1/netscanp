@@ -202,7 +202,9 @@ scan_resume
 }
 
 printer()  { 
-
+banner
+dependencies
+checktor
 read -p $'\e[1;92m[::] Ip list file: \e[0m ' printer_file
 
 default_port=9100
